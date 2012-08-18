@@ -1,4 +1,5 @@
-require 'logger'
+require_relative 'logger'
+require 'firmata'
 
 module WallE
   module SerialSnoop
@@ -20,7 +21,8 @@ module WallE
             board = Firmata::Board.new(port)
             info "Connected to #{port}."
             break # we've found a board
-          rescue
+          rescue => e
+            error e.message
             board = nil
           end
         end

@@ -14,4 +14,6 @@ Gem::Specification.new do |gem|
   gem.name          = "wall_e"
   gem.require_paths = ["lib"]
   gem.version       = WallE::VERSION
+
+  gem.add_runtime_dependency("firmata")
 end

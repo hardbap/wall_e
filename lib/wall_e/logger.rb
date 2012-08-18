@@ -1,4 +1,4 @@
-module
+module WallE
   module Logger
     def info(message)
       log("\033[34m#{message}\033\[0m")
