@@ -3,7 +3,7 @@ require 'firmata'
 
 module WallE
   module SerialSnoop
-    extend Logger
+    include Logger
 
     def identify
       ports = Dir['/dev/*'].grep(/usb|acm/)

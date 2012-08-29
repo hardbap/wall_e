@@ -15,6 +15,8 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
   gem.version       = WallE::VERSION
 
+
+  gem.add_development_dependency("minitest", "~> 3.3.0")
   gem.add_runtime_dependency("firmata", "~> 0.0.5")
   gem.add_runtime_dependency("event_spitter", "~> 0.5.0")
 end
