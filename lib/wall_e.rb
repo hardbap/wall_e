@@ -3,10 +3,14 @@ require 'wall_e/serial_snoop'
 
 module WallE
   class Board
+    extend SerialSnoop
 
-    attr_reader :board
+    attr_reader :firmata
 
-    def initialize
+    def initialize(&block)
+      firmata = identify
+
+      yield self if firmata and block_given?
 
     end
 
