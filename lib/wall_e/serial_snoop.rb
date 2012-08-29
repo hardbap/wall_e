@@ -5,7 +5,7 @@ module WallE
   module SerialSnoop
     include Logger
 
-    def identify
+    def locate
       ports = Dir['/dev/*'].grep(/usb|acm/)
       board = nil
 
@@ -15,6 +15,7 @@ module WallE
 
         info "Found possible #{what} #{ports}"
 
+        # TODO refactor to own method
         ports.each do |port|
           begin
             info "Connecting to #{port}..."
