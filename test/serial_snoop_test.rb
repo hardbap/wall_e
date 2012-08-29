@@ -1,6 +1,4 @@
-gem 'minitest' # use the gem version of minitest not the version bundled with 1.9.3
-require 'minitest/autorun'
-require 'minitest/pride'
+require_relative 'test_helper'
 
 require_relative '../lib/wall_e/serial_snoop'
 
