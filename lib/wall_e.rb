@@ -1,4 +1,5 @@
 require 'wall_e/version'
+require 'wall_e/serial_snoop'
 require 'wall_e/board'
 require 'pry'
 
@@ -7,7 +8,8 @@ module WallE
 
   def run(&block)
 
-    board = Board.new
+    arduino = SerialSnoop.locate_ports
+    board = Board.new(arduino)
 
     Thread.new do
       loop do
