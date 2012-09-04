@@ -17,15 +17,23 @@ module WallE
       @is_on = true
     end
 
-    def on?
-      @is_on
-    end
-
     def off
       board.set_pin_to_output(@pin_number)
       board.digital_write @pin_number, 0
       @is_on = false
       @is_running = false
+    end
+
+    def on?
+      @is_on
+    end
+
+    def off?
+      !on?
+    end
+
+    def running?
+      @is_running?
     end
 
     def toggle
