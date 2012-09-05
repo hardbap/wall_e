@@ -13,8 +13,14 @@ module WallE
     # Internal: Fixnum byte for pin mode servo.
     SERVO = 0x04
 
-    attr_reader :number, :board
+    # Public: Returns the Integer pin number.
+    attr_reader :number
 
+    # Public: Initialize a Pin
+    #
+    # number - the Integer pin number on the board.
+    # board  - the WallE::Board this pin is on.
+    # mode   - the Fixnum mode to set the pin to (default: OUTPUT).
     def initialize(number, board, mode = OUTPUT)
       @number = number
       @board = board
@@ -22,19 +28,36 @@ module WallE
       set_mode(mode)
     end
 
+    # Public: Write a digital value to the pin.
+    #
+    # value - an Integer value.
+    #
+    # Returns nothing.
     def digital_write(value)
       @board.digital_write(@number, value)
     end
 
+    # Public: Set the pin mode.
+    #
+    # mode - an Integer mode.
+    #
+    # Returns nothing.
+    # Raises UnsupportedModeError if the pin does not support the mode.
     def set_mode(mode)
       raise UnsupportedModeError unless @onboard_pin.supported_modes.include?(mode)
       @board.set_pin_mode(@number, mode)
     end
 
+    # Public: Get the current mode.
+    #
+    # Returns Integer mode.
     def current_mode
       @onboard_pin.mode
     end
 
+    # Public: Get the current value of the pin.
+    #
+    # Returns Integer value.
     def value
       @onboard_pin.value
     end
