@@ -23,7 +23,7 @@ module WallE
     end
 
     def digital_write(value)
-      @board.digital_write(value)
+      @board.digital_write(@number, value)
     end
 
     def set_mode(mode)

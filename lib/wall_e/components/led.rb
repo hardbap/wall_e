@@ -1,25 +1,22 @@
 module WallE
   class Led
 
-    attr_reader :pin_number, :pin, :board
+    attr_reader :pin
 
-    def initialize(pin_number, board)
-      @pin_number = pin_number
-      @board = board
-      @pin = @board.pins[@pin_number]
+    def initialize(pin)
+      @pin = pin
+      @pin.set_mode(Pin::OUTPUT)
       @is_on = false
       @is_running = false
     end
 
     def on
-      board.set_pin_to_output(@pin_number)
-      board.digital_write @pin_number, 1
+      pin.digital_write(1)
       @is_on = true
     end
 
     def off
-      board.set_pin_to_output(@pin_number)
-      board.digital_write @pin_number, 0
+      pin.digital_write(0)
       @is_on = false
       @is_running = false
     end
@@ -33,7 +30,7 @@ module WallE
     end
 
     def running?
-      @is_running?
+      @is_running
     end
 
     def toggle

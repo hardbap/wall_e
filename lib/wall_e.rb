@@ -14,7 +14,7 @@ module WallE
     Thread.new do
       loop do
         begin
-          board.firmata.read_and_process
+          arduino.read_and_process
           sleep(0.5)
         rescue Exception => e
           puts e.message
