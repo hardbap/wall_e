@@ -13,6 +13,9 @@ module WallE
     # Internal: Fixnum byte for pin mode servo.
     SERVO = 0x04
 
+    LOW  = 0
+    HIGH = 1
+
     # Public: Returns the Integer pin number.
     attr_reader :number
 
@@ -37,6 +40,10 @@ module WallE
       @board.digital_write(@number, value)
     end
 
+    def delay(seconds)
+      @board.delay(seconds)
+    end
+
     # Public: Set the pin mode.
     #
     # mode - an Integer mode.
@@ -45,7 +52,8 @@ module WallE
     # Raises UnsupportedModeError if the pin does not support the mode.
     def set_mode(mode)
       raise UnsupportedModeError unless @onboard_pin.supported_modes.include?(mode)
-      @board.set_pin_mode(@number, mode)
+
+      @board.set_pin_mode(@number, mode) unless current_mode == mode
     end
 
     # Public: Get the current mode.
@@ -53,6 +61,10 @@ module WallE
     # Returns Integer mode.
     def current_mode
       @onboard_pin.mode
+    end
+
+    def in_output?
+      current_mode == OUTPUT
     end
 
     # Public: Get the current value of the pin.

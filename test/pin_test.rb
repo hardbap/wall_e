@@ -35,7 +35,6 @@ class PinTest < MiniTest::Unit::TestCase
 
     board = MiniTest::Mock.new
     board.expect(:pins, board_pins)
-    board.expect(:set_pin_mode, 1, [pin_number, WallE::Pin::OUTPUT])
     board.expect(:digital_write, 1, [pin_number, 1])
 
     pin = WallE::Pin.new(pin_number, board)
