@@ -5,13 +5,28 @@ require 'pry'
 
 
 module WallE
-  class Builder
-    def self.run(&block)
+  class Assembler
+
+    attr_reader :board
+
+    def self.build(&block)
 
       arduino = SerialSnoop.locate_ports
-      board = Board.new(arduino)
 
-      Thread.new do
+      wall_e = new(arduino)
+
+      wall_e.instance_eval(&block)
+
+      Pry.start(wall_e, :prompt => [ proc { |obj, *| "wall_e > " }, proc { |obj, *| "wall_e* "} ])
+    end
+
+    def initialize(arduino)
+      @board = arduino
+      @board.connect unless arduino.connected?
+      @running = true
+      @group = ThreadGroup.new
+
+       Thread.new do
         loop do
           begin
             arduino.read_and_process
@@ -23,20 +38,6 @@ module WallE
           end
         end
       end
-
-      wall_e = new(board)
-
-      wall_e.instance_eval(&block)
-
-      Pry.start(wall_e, :prompt => [ proc { |obj, *| "wall_e > " }, proc { |obj, *| "wall_e* "} ])
-    end
-
-    attr_reader :board
-
-    def initialize(board)
-      @board = board
-      @running = true
-      @group = ThreadGroup.new
     end
 
     def Led(pin_number)
