@@ -45,6 +45,10 @@ module WallE
       Led.new(pin)
     end
 
+    def delay(seconds)
+      @board.delay seconds
+    end
+
     def pause
       @running = false
     end

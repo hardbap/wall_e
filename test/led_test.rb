@@ -52,4 +52,15 @@ class LedTest < MiniTest::Unit::TestCase
     assert led.off?, 'led not toggled off'
     pin.verify
   end
+
+  def test_brightness
+    pin = MiniTest::Mock.new
+    pin.expect(:set_mode, 1, [WallE::Pin::PWM])
+    pin.expect(:analog_write, 1, [255])
+
+    led = WallE::Led.new(pin)
+
+    led.brightness(255)
+    pin.verify
+  end
 end

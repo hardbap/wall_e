@@ -40,8 +40,13 @@ module WallE
       @board.digital_write(@number, value)
     end
 
-    def delay(seconds)
-      @board.delay(seconds)
+    # Public: Write analog value to the pin
+    #
+    # value - an Integer value.
+    #
+    # Returns nothing.
+    def analog_write(value)
+      @board.analog_write(@number, value)
     end
 
     # Public: Set the pin mode.

@@ -6,7 +6,6 @@ module WallE
     def initialize(pin)
       @pin = pin
       @is_on = false
-      @is_running = false
     end
 
     def on
@@ -19,7 +18,11 @@ module WallE
       @pin.set_mode(Pin::OUTPUT)
       @pin.digital_write(Pin::LOW)
       @is_on = false
-      @is_running = false
+    end
+
+    def brightness(value)
+      @pin.set_mode(Pin::PWM)
+      @pin.analog_write(value)
     end
 
     def on?
@@ -30,21 +33,12 @@ module WallE
       !on?
     end
 
-    def running?
-      @is_running
-    end
-
     def toggle
-      if on? or running?
+      if on?
         off
       else
         on
       end
-    end
-
-    def blink(rate = 0.5)
-      toggle
-      @pin.delay rate
     end
 
     def value
