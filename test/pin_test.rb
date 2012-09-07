@@ -28,6 +28,24 @@ class PinTest < MiniTest::Unit::TestCase
     assert_raises(WallE::Pin::UnsupportedModeError) { pin.set_mode WallE::Pin::SERVO }
   end
 
+  def test_set_mode_will_only_set_changes
+    pin_number = 13
+    board_pins = []
+    board_pins.insert(pin_number, OpenStruct.new(supported_modes: Array(0..4)))
+
+    board = OpenStruct.new(pins: board_pins, set_pin_mode: 1)
+
+    pin = nil
+
+    board.stub :set_pin_mode, 1 do
+      pin = WallE::Pin.new(pin_number, board, WallE::Pin::PWM)
+    end
+
+    pin.stub :current_mode, WallE::Pin::PWM do
+      pin.set_mode WallE::Pin::PWM
+    end
+  end
+
   def test_digital_write_to_board
     pin_number = 13
     board_pins = []

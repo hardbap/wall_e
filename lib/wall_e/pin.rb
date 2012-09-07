@@ -57,7 +57,6 @@ module WallE
     # Raises UnsupportedModeError if the pin does not support the mode.
     def set_mode(mode)
       raise UnsupportedModeError unless @onboard_pin.supported_modes.include?(mode)
-
       @board.set_pin_mode(@number, mode) unless current_mode == mode
     end
 
@@ -66,10 +65,6 @@ module WallE
     # Returns Integer mode.
     def current_mode
       @onboard_pin.mode
-    end
-
-    def in_output?
-      current_mode == OUTPUT
     end
 
     # Public: Get the current value of the pin.
