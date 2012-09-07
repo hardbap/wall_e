@@ -24,7 +24,7 @@ module WallE
       end
     end
 
-    yield board
+    yield board if block_given?
 
     Pry.start(board, :prompt => [ proc { |obj, *| "wall_e > " }, proc { |obj, *| "wall_e* "} ])
   end

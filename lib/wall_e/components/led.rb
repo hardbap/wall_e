@@ -42,18 +42,6 @@ module WallE
       end
     end
 
-    def blink(rate = 0.1)
-      @is_running = true
-
-      ->() { toggle; pin.delay(0.1) }
-    end
-
-    def brightness
-    end
-
-    def fade
-    end
-
     def value
       @pin.value
     end
