@@ -13,10 +13,5 @@ module WallE
       @firmata = firmata
       @firmata.connect unless firmata.connected?
     end
-
-    def Led(pin_number)
-      pin = Pin.new(pin_number, self)
-      Led.new(pin)
-    end
   end
 end

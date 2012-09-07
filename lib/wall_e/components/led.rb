@@ -42,6 +42,11 @@ module WallE
       end
     end
 
+    def blink(rate = 0.5)
+      toggle
+      @pin.delay rate
+    end
+
     def value
       @pin.value
     end
