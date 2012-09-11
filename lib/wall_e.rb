@@ -1,5 +1,8 @@
 require 'wall_e/version'
 require 'wall_e/serial_snoop'
+require 'wall_e/pin'
+require 'wall_e/components/led'
+require 'wall_e/components/servo'
 require 'pry'
 
 
@@ -44,6 +47,11 @@ module WallE
       Led.new(pin)
     end
 
+    def Servo(pin_number, options = {})
+      pin = Pin.new(pin_number, @board)
+      Servo.new(pin, options)
+    end
+
     def delay(seconds)
       @board.delay seconds
     end
@@ -52,7 +60,7 @@ module WallE
       @running = false
     end
 
-    def restart
+    def resume
       @running = true
       @group.list.each(&:wakeup)
     end

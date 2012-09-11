@@ -49,6 +49,13 @@ module WallE
       @board.analog_write(@number, value)
     end
 
+    # Public: write value to servo
+    #
+    # value - an Integer value.
+    #
+    # Returns nothing.
+    alias_method :servo_write, :analog_write
+
     # Public: Set the pin mode.
     #
     # mode - an Integer mode.
