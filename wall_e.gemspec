@@ -4,9 +4,9 @@ require File.expand_path('../lib/wall_e/version', __FILE__)
 Gem::Specification.new do |gem|
   gem.authors       = ["'Mike Breen'"]
   gem.email         = ["hardbap@gmail.com"]
-  gem.description   = %q{TODO: Write a gem description}
-  gem.summary       = %q{TODO: Write a gem summary}
-  gem.homepage      = ""
+  gem.description   = %q{A Firmata based Arduino library}
+  gem.summary       = %q{}
+  gem.homepage      = "https://github.com/hardbap/wall_e"
 
   gem.files         = `git ls-files`.split($\)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
