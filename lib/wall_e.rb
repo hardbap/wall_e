@@ -1,9 +1,12 @@
 require 'wall_e/version'
 require 'wall_e/serial_snoop'
 require 'wall_e/pin'
+require 'pry'
+
 require 'wall_e/components/led'
 require 'wall_e/components/servo'
-require 'pry'
+require 'wall_e/components/piezo'
+
 
 
 module WallE
@@ -50,6 +53,11 @@ module WallE
     def Servo(pin_number, options = {})
       pin = Pin.new(pin_number, @board)
       Servo.new(pin, options)
+    end
+
+    def Piezo(pin_number)
+      pin = Pin.new(pin_number, @board)
+      Piezo.new(pin)
     end
 
     def delay(seconds)
