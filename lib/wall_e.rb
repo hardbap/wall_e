@@ -15,14 +15,17 @@ module WallE
     attr_reader :board
 
     def self.build(&block)
+      wall_e = create
 
+      wall_e.instance_eval(&block) if block_given?
+
+      Pry.start(wall_e, :prompt => [ proc { |obj, *| "wall_e > " },
+                                     proc { |obj, *| "wall_e* "} ])
+    end
+
+    def self.create
       arduino = SerialSnoop.locate_ports
-
-      wall_e = new(arduino)
-
-      wall_e.instance_eval(&block)
-
-      Pry.start(wall_e, :prompt => [ proc { |obj, *| "wall_e > " }, proc { |obj, *| "wall_e* "} ])
+      new(arduino)
     end
 
     def initialize(arduino)
@@ -81,13 +84,13 @@ module WallE
       t = Thread.new do
         loop do
           Thread.stop unless @running
-            begin
-              block.call
-            rescue Exception => e
-              puts e.message
-              puts e.backtrace.inspect
-              Thread.kill
-            end
+          begin
+            block.call
+          rescue Exception => e
+            puts e.message
+            puts e.backtrace.inspect
+            Thread.kill
+          end
         end
       end
 
