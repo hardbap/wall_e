@@ -7,6 +7,7 @@ require 'pry'
 require 'wall_e/components/led'
 require 'wall_e/components/servo'
 require 'wall_e/components/piezo'
+require 'wall_e/components/claw'
 
 module WallE
   class Assembler
@@ -61,6 +62,12 @@ module WallE
     def Piezo(pin_number)
       pin = Pin.new(pin_number, @board)
       Piezo.new(pin)
+    end
+
+    def Claw(claw_pin_number, pan_pin_number)
+      claw_servo = Servo(claw_pin_number, range: 60..144)
+      pan_servo  = Servo(pan_pin_number)
+      Claw.new(claw_servo, pan_servo)
     end
 
     def delay(seconds)
