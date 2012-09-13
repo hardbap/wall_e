@@ -2,8 +2,12 @@ require 'bundler/setup'
 require 'wall_e'
 
 WallE::Assembler.build do
-
-  servo = Servo(9)
+  # This example uses a Sparkfun's "Medium" servo.
+  # (DGServo S05NF STD http://www.sparkfun.com/products/10333)
+  #
+  # Using the range 15..170 appears to be the sweet spot for this servo.
+  # YMMV especially if you are using a different servo.
+  servo = Servo(9, range: 15..170)
   servo.min
 
   repeat do
