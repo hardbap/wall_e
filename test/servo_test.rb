@@ -56,16 +56,14 @@ class ServoTest < MiniTest::Unit::TestCase
   end
 
   def test_moving_to_center
-    def test_moving_to_min
-      pin = MiniTest::Mock.new
-      pin.expect(:set_mode, 1, [WallE::Pin::SERVO])
-      pin.expect(:servo_write, 1, [90])
+    pin = MiniTest::Mock.new
+    pin.expect(:set_mode, 1, [WallE::Pin::SERVO])
+    pin.expect(:servo_write, 1, [90])
 
-      servo = WallE::Servo.new(pin)
-      servo.center
+    servo = WallE::Servo.new(pin)
+    servo.center
 
-      pin.verify
-    end
+    pin.verify
   end
 
 end

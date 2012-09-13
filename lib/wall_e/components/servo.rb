@@ -31,7 +31,7 @@ module WallE
     #
     # Returns nothing.
     def center
-      move_to ((min + max) / 2).abs
+      move_to ((@range.min + @range.max) / 2).abs
     end
 
     # Public: Move the servo.
