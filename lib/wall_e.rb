@@ -3,11 +3,10 @@ require 'wall_e/serial_snoop'
 require 'wall_e/pin'
 require 'pry'
 
+# TODO everything in components should be required automagically.
 require 'wall_e/components/led'
 require 'wall_e/components/servo'
 require 'wall_e/components/piezo'
-
-
 
 module WallE
   class Assembler
@@ -48,6 +47,7 @@ module WallE
       end
     end
 
+    # TODO some metaprogramming sauce to reduce the component helper code.
     def Led(pin_number)
       pin = Pin.new(pin_number, @board)
       Led.new(pin)
