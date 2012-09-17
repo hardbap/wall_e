@@ -3,7 +3,7 @@ require 'wall_e'
 
 WallE::Assembler.build do
 
-  led = Led(9)
+  led = Led(3)
   rate = 0.75
 
   repeat do

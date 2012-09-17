@@ -75,7 +75,7 @@ class MorseCode
 end
 
 WallE::Assembler.build do
-  piezo = Piezo(9)
+  piezo = Piezo(6)
 
   mc = MorseCode.new(piezo)
 

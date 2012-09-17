@@ -3,7 +3,7 @@ require 'wall_e'
 
 WallE::Assembler.build do
 
-  led = Led(9)
+  led = Led(5)
 
   direction = 1000 / (255 * 2)
 
