@@ -29,6 +29,24 @@ module WallE
       @claw_servo.max
     end
 
+    # Public: close the claw.
+    #
+    # degrees - the Integer degrees to move the claw to.
+    #
+    # Returns nothing.
+    def pinch(degrees)
+      @claw_servo.move_to degrees
+    end
+
+    # Public: tilt the claw.
+    #
+    # degrees - the Integer degrees to tilt the claw.
+    #
+    # Returns nothing.
+    def tilt(degrees)
+      @pan_servo.move_to degrees
+    end
+
     # Public: Indicates if the claw currently open.
     #
     # Returns truthy/falsy value.
