@@ -9,7 +9,7 @@ WallE::Assembler.build do
   # YMMV especially if you are using a different servo.
   #
   # The Hitec HS-322 (http://amzn.com/B0006O3XEA) has a range of 2..180.
-  servo = Servo(9, range: 15..170)
+  servo = Servo(9, range: 2..180)
   servo.min
 
   repeat do
