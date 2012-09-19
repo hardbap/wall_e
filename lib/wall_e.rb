@@ -51,23 +51,40 @@ module WallE
     # TODO some metaprogramming sauce to reduce the component helper code.
     def Led(pin_number)
       pin = Pin.new(pin_number, @board)
-      Led.new(pin)
+      (leds << Led.new(pin)).last
     end
 
     def Servo(pin_number, options = {})
       pin = Pin.new(pin_number, @board)
-      Servo.new(pin, options)
+      (servos << Servo.new(pin, options)).last
     end
 
     def Piezo(pin_number)
       pin = Pin.new(pin_number, @board)
-      Piezo.new(pin)
+      (piezos << Piezo.new(pin)).last
     end
 
     def Claw(claw_pin_number, pan_pin_number)
       claw_servo = Servo(claw_pin_number, range: 60..144)
       pan_servo  = Servo(pan_pin_number)
-      Claw.new(claw_servo, pan_servo)
+      (claws << Claw.new(claw_servo, pan_servo)).last
+    end
+
+    # TODO wrap up these collections in some metaprogramming sauce too.
+    def leds
+      @leds ||= []
+    end
+
+    def servos
+      @servos ||= []
+    end
+
+    def piezos
+      @piezos ||= []
+    end
+
+    def claws
+      @claws ||= []
     end
 
     def delay(seconds)
@@ -79,11 +96,11 @@ module WallE
     end
 
     def resume
-      @running = true
       @group.list.each(&:wakeup)
+      @running = true
     end
 
-    def turn_off
+    def shut_down
       @group.list.each(&:kill)
     end
 
