@@ -18,7 +18,6 @@ the Node community. Big props to:
 3. Plug in your Arduino via USB
 4. Open the Arduino IDE, select: File > Open > [Path from step 2] > examples > StandardFirmata
 5. Click the Upload button
-6. Make note of the serial port: Tools > Serial Port
 
 ## Installation
 
