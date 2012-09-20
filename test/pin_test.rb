@@ -79,4 +79,21 @@ class PinTest < MiniTest::Unit::TestCase
 
     board.verify
   end
+
+  def test_start_reporting_to_board
+    pin_number = 13
+    board_pins = []
+    board_pins.insert(pin_number, OpenStruct.new(supported_modes: Array(0..4)))
+
+    board = MiniTest::Mock.new
+    board.expect(:pins, board_pins)
+    board.expect(:set_pin_mode, 1, [pin_number, WallE::Pin::OUTPUT])
+    board.expect(:start_pin_reporting, nil)
+
+    pin = WallE::Pin.new(pin_number, board)
+
+    pin.start_reporting
+
+    board.verify
+  end
 end
