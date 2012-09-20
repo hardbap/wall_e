@@ -1,6 +1,24 @@
-# WallE
+# Wall&middot;E
 
-TODO: Write a gem description
+Ruby powered robots.
+
+## Shout-outs
+
+Wall&middot;E would not have been possible if not for the awesome goings on in
+the Node community. Big props to:
+
+* [Rick Waldron](https://github.com/rwldrn) creator of [johnny-five](https://github.com/rwldrn/johnny-five)
+* [Chris Williams](https://github.com/voodootikigod) creator of [node-serialport](https://github.com/voodootikigod/node-serialport)
+* [Julian Gautier](https://github.com/jgautier) creator [firmata](https://github.com/jgautier/firmata)
+
+## Prerequisites
+
+1. Download and install the [Arduio IDE](http://www.arduino.cc/en/Main/Software) for your OS
+2. Download and unzip [Firmata 2.2](http://at.or.at/hans/pd/Firmata-2.2.zip)
+3. Plug in your Arduino via USB
+4. Open the Arduino IDE, select: File > Open > [Path from step 2] > examples > StandardFirmata
+5. Click the Upload button
+6. Make note of the serial port: Tools > Serial Port
 
 ## Installation
 
@@ -18,7 +36,19 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+    require 'wall_e'
+
+    WallE::Assembler.build do
+
+      led = Led(3)
+      rate = 0.75
+
+      repeat do
+        led.toggle
+        delay rate
+      end
+
+    end
 
 ## Contributing
 
