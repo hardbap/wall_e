@@ -1,5 +1,8 @@
+require 'forwardable'
+
 module WallE
   class Pin
+    extend Forwardable
     class UnsupportedModeError < StandardError; end
 
     # Internal: Fixnum byte for pin mode input.
@@ -18,6 +21,8 @@ module WallE
 
     # Public: Returns the Integer pin number.
     attr_reader :number
+
+    def_delegators :@board, :on, :off, :once
 
     # Public: Initialize a Pin
     #
@@ -79,6 +84,10 @@ module WallE
     # Returns Integer value.
     def value
       @onboard_pin.value
+    end
+
+    def start_reporting
+      @board.start_pin_reporting
     end
   end
 end

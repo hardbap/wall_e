@@ -8,10 +8,10 @@ require 'wall_e/components/led'
 require 'wall_e/components/servo'
 require 'wall_e/components/piezo'
 require 'wall_e/components/claw'
+require 'wall_e/components/button'
 
 module WallE
   class Assembler
-
     attr_reader :board
 
     def self.build(&block)
@@ -70,6 +70,11 @@ module WallE
       (claws << Claw.new(claw_servo, pan_servo)).last
     end
 
+    def Button(pin_number)
+      pin = Pin.new(pin_number, @board)
+      (buttons << Button.new(pin)).last
+    end
+
     # TODO wrap up these collections in some metaprogramming sauce too.
     def leds
       @leds ||= []
@@ -85,6 +90,10 @@ module WallE
 
     def claws
       @claws ||= []
+    end
+
+    def buttons
+      @buttons ||= []
     end
 
     def delay(seconds)
