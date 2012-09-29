@@ -12,7 +12,6 @@ DummyBoard = Class.new do
 
   def digital_write(*args); args.length; end
   def set_pin_mode(pin_number, mode); pin_number; end
-
 end
 
 class PinTest < MiniTest::Unit::TestCase
@@ -80,19 +79,47 @@ class PinTest < MiniTest::Unit::TestCase
     board.verify
   end
 
-  def test_start_reporting_to_board
+  def test_pin_not_in_input_mode_cannot_report
+    board_pins = []
+    board_pins.insert(13, OpenStruct.new(mode: WallE::Pin::PWM, supported_modes: Array(0..3)))
+
+    board = DummyBoard.new(board_pins)
+
+    pin = WallE::Pin.new(13, board)
+
+    assert_raises(WallE::Pin::UnsupportedModeError) do
+      pin.start_reporting
+    end
+  end
+
+  def test_start_pin_reporting
     pin_number = 13
     board_pins = []
-    board_pins.insert(pin_number, OpenStruct.new(supported_modes: Array(0..4)))
+    board_pins.insert(pin_number, OpenStruct.new(mode: WallE::Pin::INPUT, supported_modes: Array(0..4)))
 
     board = MiniTest::Mock.new
     board.expect(:pins, board_pins)
-    board.expect(:set_pin_mode, 1, [pin_number, WallE::Pin::OUTPUT])
-    board.expect(:start_pin_reporting, nil)
+    board.expect(:toggle_pin_reporting, true, [pin_number])
 
-    pin = WallE::Pin.new(pin_number, board)
+    pin = WallE::Pin.new(pin_number, board, WallE::Pin::INPUT)
 
     pin.start_reporting
+
+    board.verify
+  end
+
+  def test_stop_pin_reporting
+    pin_number = 13
+    board_pins = []
+    board_pins.insert(pin_number, OpenStruct.new(mode: WallE::Pin::INPUT, supported_modes: Array(0..4)))
+
+    board = MiniTest::Mock.new
+    board.expect(:pins, board_pins)
+    board.expect(:toggle_pin_reporting, true, [pin_number, WallE::Pin::LOW])
+
+    pin = WallE::Pin.new(pin_number, board, WallE::Pin::INPUT)
+
+    pin.stop_reporting
 
     board.verify
   end

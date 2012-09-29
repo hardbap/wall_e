@@ -3,7 +3,7 @@ require 'forwardable'
 module WallE
   class Pin
     extend Forwardable
-    class UnsupportedModeError < StandardError; end
+    UnsupportedModeError = Class.new(StandardError)
 
     # Internal: Fixnum byte for pin mode input.
     INPUT = 0x00
@@ -33,6 +33,7 @@ module WallE
       @number = number
       @board = board
       @onboard_pin = @board.pins[@number]
+      @reporting = false
       set_mode(mode)
     end
 
@@ -86,11 +87,26 @@ module WallE
       @onboard_pin.value
     end
 
-    # Public: Enable pin reporting.
+    # Public: Start pin reporting.
     #
     # Returns nothing.
+    # Raises UnsupportedModeError if the pin's mode is not INPUT.
     def start_reporting
-      @board.start_pin_reporting
+      raise UnsupportedModeError unless current_mode == INPUT
+      @board.toggle_pin_reporting(@number)
+      @reporting = true
+    end
+
+    # Public: Stop pin reporting.
+    #
+    # Returns nothing.
+    def stop_reporting
+      @reporting = false
+      @board.toggle_pin_reporting(@number, LOW)
+    end
+
+    def reporting?
+      @reporting
     end
   end
 end

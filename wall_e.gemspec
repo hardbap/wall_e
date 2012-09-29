@@ -17,7 +17,7 @@ Gem::Specification.new do |gem|
 
 
   gem.add_development_dependency("minitest", "~> 3.3.0")
-  gem.add_runtime_dependency("firmata", "~> 0.0.7")
+  gem.add_runtime_dependency("firmata", "~> 0.1.0")
   gem.add_runtime_dependency("event_spitter", "~> 0.5.0")
   gem.add_runtime_dependency("pry", "~> 0.9.10")
 end
