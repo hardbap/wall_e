@@ -101,10 +101,13 @@ module WallE
     #
     # Returns nothing.
     def stop_reporting
-      @reporting = false
       @board.toggle_pin_reporting(@number, LOW)
+      @reporting = false
     end
 
+    # Public: Indicates the pin currently reporting.
+    #
+    # Returns Boolean about the pin's reporting status.
     def reporting?
       @reporting
     end
